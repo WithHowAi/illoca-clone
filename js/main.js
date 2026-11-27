@@ -7,13 +7,15 @@
     cy.textContent = e.clientY.toFixed(2);
   }, { passive: true });
 
-  // Loader: hide once the page (and scene stub) is ready; animation lands in Phase 2
+  // Loader: original holds ~4s while the logo tiles assemble; keep a 2.4s
+  // minimum so the sequence is actually seen, then fade out
   addEventListener('load', function () {
     setTimeout(function () {
       var l = document.getElementById('loader');
+      if (!l) return;
       l.style.transition = 'opacity .5s'; l.style.opacity = '0';
       setTimeout(function () { l.remove(); }, 550);
-    }, 900);
+    }, 2400);
   });
 
   // FAQ accordion — single-open (RESEARCH §9)

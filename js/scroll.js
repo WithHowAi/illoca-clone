@@ -44,10 +44,10 @@
   // massing aerial, top-floor close-up, wide again (RESEARCH §5)
   var BEATS = [
     [[0, 3.2, 8.5], [0, 0.6, 0]],
-    [[-0.6, 2.0, 5.2], [-0.6, 0.4, 0]],
-    [[-1.2, 2.6, 2.4], [-1.2, 0.1, 0.2]],
-    [[0.4, 4.6, 4.2], [1.6, 0.3, -0.2]],
-    [[1.9, 2.2, 3.0], [1.9, 0.8, -0.2]],
+    [[-0.6, 2.2, 5.6], [-0.6, 0.4, 0]],
+    [[-1.2, 3.0, 3.1], [-1.2, 0.1, 0.2]],
+    [[0.4, 4.8, 4.8], [1.6, 0.3, -0.2]],
+    [[1.9, 2.6, 3.8], [1.9, 0.8, -0.2]],
     [[0, 3.4, 9.0], [0, 0.6, 0]]
   ];
   function flyTo(tl, beat, pos) {
@@ -62,17 +62,17 @@
   var tl = gsap.timeline({
     defaults: { ease: 'power2.inOut' },
     scrollTrigger: {
-      trigger: '#flight', start: 'top top', end: '+=6500', scrub: 1, pin: true, anticipatePin: 1
+      trigger: '#flight', start: 'top top', end: '+=5600', scrub: 1, pin: true, anticipatePin: 1
     }
   });
 
-  // Hero copy leaves as the camera dollies in (beat 0 -> 1)
-  tl.to('.hero', { y: -90, opacity: 0, duration: 0.7, ease: 'power2.in' }, 0);
+  // Hero copy leaves FIRST (fully gone before panel 1 arrives, so no bleed-through)
+  tl.to('.hero', { y: -90, opacity: 0, duration: 0.4, ease: 'power2.in' }, 0);
   flyTo(tl, BEATS[1], 0);
 
   panels.forEach(function (panel, i) {
     var fromX = panel.classList.contains('panel--right') ? 90 : -90;
-    var at = 0.55 + i * 1.0;
+    var at = 0.62 + i * 1.0;
     // Scene state for this beat
     if (i === 1) tl.fromTo(S.massing.scale, { y: 0.08 }, { y: 1, duration: 0.8 }, at);           // massing rises (F2)
     if (i === 2) tl.to(S.promptBar.material, { opacity: 1, duration: 0.4 }, at + 0.3);            // prompt bar in (F3)
@@ -80,13 +80,16 @@
     if (i === 3) tl.to(S.ring.material, { opacity: 1, duration: 0.4 }, at + 0.3);                 // markup ring (F4)
     if (i === 3) tl.to(S.ring.material, { opacity: 0, duration: 0.3 }, at + 0.95);
     if (i === 4) tl.to(S.massing.children[0].material.color, { r: 0.85, g: 0.72, b: 0.55, duration: 0.6 }, at); // facade tint (F5)
-    // Panel in, dwell, out — synced with the camera move to the next beat
+    // Panel in, dwell, out — synced with the camera move to the next beat.
+    // is-live toggles pointer-events so the demo button is only clickable while settled.
     tl.fromTo(panel, { x: fromX, opacity: 0, visibility: 'visible' },
       { x: 0, opacity: 1, duration: 0.35, ease: 'power3.out' }, at);
+    tl.call(function () { panel.classList.add('is-live'); }, null, at + 0.36);
+    tl.call(function () { panel.classList.remove('is-live'); }, null, at + 0.66);
     tl.to(panel, { x: -fromX, opacity: 0, duration: 0.3, ease: 'power2.in' }, at + 0.68);
     flyTo(tl, BEATS[i + 2] || BEATS[5], at + 0.35);
   });
 
-  // Navy wipe into the Open Letter is handled by the letter section's own
-  // negative margin + the pin release; nothing extra needed here.
+  // Navy wipe up into the Open Letter (matches the original's exit)
+  tl.to('.flight-wipe', { scaleY: 1, duration: 0.45, ease: 'power2.inOut' }, 5.75);
 })();

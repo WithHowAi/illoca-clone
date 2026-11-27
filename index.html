@@ -21,7 +21,7 @@
 </div>
 
 <!-- Fixed chrome -->
-<div class="coords" aria-hidden="true">X <span id="coord-x">0.00</span><br>Y <span id="coord-y">0.00</span></div>
+<div class="coords" aria-hidden="true">X<span id="coord-x">0.00</span> Y<span id="coord-y">0.00</span></div>
 <a class="chrome-email" href="mailto:hello@illoca.com">hello@illoca.com</a>
 
 <header class="nav-pill">
@@ -42,6 +42,7 @@
   <!-- Pinned WebGL flight: hero + 5 features share one canvas (js/scene.js, js/scroll.js) -->
   <section id="flight">
     <canvas id="scene" aria-hidden="true"></canvas>
+    <div class="flight-wipe" aria-hidden="true"></div>
 
     <div class="hero">
       <h1 class="hero-title">
@@ -93,6 +94,8 @@
 
   <!-- Open Letter (copy paraphrased — see docs/RESEARCH.md §7) -->
   <section id="letter">
+    <span class="letter-tile letter-tile--1">◐</span><span class="letter-tile letter-tile--2">D</span>
+    <span class="letter-tile letter-tile--3">⌃</span><span class="letter-tile letter-tile--4">▤</span>
     <p class="hand letter-eyebrow">to those who shape the world</p>
     <h2 class="letter-title">An Open Letter</h2>
     <div class="letter-sheet">
@@ -163,7 +166,14 @@
 
   <!-- Footer -->
   <footer>
-    <div class="footer-plan" aria-hidden="true"><!-- recreated isometric floor-plan line art (SVG) lands in Phase 3 --></div>
+    <div class="footer-plan" aria-hidden="true">
+      <svg viewBox="0 0 1200 260" preserveAspectRatio="xMidYMid meet" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2">
+        <rect x="60" y="50" width="300" height="170"/><rect x="60" y="50" width="130" height="85"/>
+        <circle cx="520" cy="135" r="80"/><circle cx="520" cy="135" r="42"/>
+        <path d="M740 220 L900 50 L1060 220 Z"/><path d="M815 220 L900 130 L985 220"/>
+        <path d="M60 220 H1140" stroke-dasharray="7 9"/><path d="M360 135 H440 M600 135 H740 M1060 135 H1140"/>
+      </svg>
+    </div>
     <div class="footer-card">
       <p class="footer-tag">Architectural design at the<br>speed of thought, not software.</p>
       <nav class="footer-cols">
@@ -182,7 +192,17 @@
   <button id="demo-close">Close ↩</button>
   <h3 id="demo-title"></h3>
   <ol id="demo-steps"></ol>
-  <div class="demo-video">Demo video placeholder (18s)</div>
+  <div class="demo-video" aria-hidden="true">
+    <svg viewBox="0 0 320 190" fill="none" stroke="#41506b" stroke-width="2">
+      <rect class="dv-draw" x="25" y="25" width="270" height="140"/>
+      <rect class="dv-draw dv-d2" x="25" y="25" width="105" height="70"/>
+      <rect class="dv-draw dv-d3" x="130" y="95" width="80" height="70"/>
+      <rect class="dv-draw dv-d4" x="210" y="25" width="85" height="60"/>
+      <circle class="dv-draw dv-d5" cx="255" cy="125" r="22"/>
+      <path class="dv-draw dv-d6" d="M40 150 H115 M225 150 H280" stroke="#e76051"/>
+    </svg>
+    <span>Live Draft preview</span>
+  </div>
   <a class="btn btn--white" href="#"><span class="btn-icon"></span>Open demo project</a>
 </aside>
 
