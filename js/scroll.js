@@ -47,7 +47,7 @@
     [[-0.6, 2.2, 5.6], [-0.6, 0.4, 0]],
     [[-1.2, 3.0, 3.1], [-1.2, 0.1, 0.2]],
     [[0.4, 4.8, 4.8], [1.6, 0.3, -0.2]],
-    [[1.9, 2.6, 3.8], [1.9, 0.8, -0.2]],
+    [[1.9, 3.0, 4.6], [1.9, 0.8, -0.2]],
     [[0, 3.4, 9.0], [0, 0.6, 0]]
   ];
   function flyTo(tl, beat, pos) {
@@ -66,8 +66,8 @@
     }
   });
 
-  // Hero copy leaves FIRST (fully gone before panel 1 arrives, so no bleed-through)
-  tl.to('.hero', { y: -90, opacity: 0, duration: 0.4, ease: 'power2.in' }, 0);
+  // Hero copy leaves FIRST (autoAlpha also hides it from clicks once gone)
+  tl.to('.hero', { y: -90, autoAlpha: 0, duration: 0.4, ease: 'power2.in' }, 0);
   flyTo(tl, BEATS[1], 0);
 
   panels.forEach(function (panel, i) {
@@ -81,12 +81,12 @@
     if (i === 3) tl.to(S.ring.material, { opacity: 0, duration: 0.3 }, at + 0.95);
     if (i === 4) tl.to(S.massing.children[0].material.color, { r: 0.85, g: 0.72, b: 0.55, duration: 0.6 }, at); // facade tint (F5)
     // Panel in, dwell, out — synced with the camera move to the next beat.
-    // is-live toggles pointer-events so the demo button is only clickable while settled.
-    tl.fromTo(panel, { x: fromX, opacity: 0, visibility: 'visible' },
-      { x: 0, opacity: 1, duration: 0.35, ease: 'power3.out' }, at);
-    tl.call(function () { panel.classList.add('is-live'); }, null, at + 0.36);
-    tl.call(function () { panel.classList.remove('is-live'); }, null, at + 0.66);
-    tl.to(panel, { x: -fromX, opacity: 0, duration: 0.3, ease: 'power2.in' }, at + 0.68);
+    // autoAlpha handles visibility; pointer-events via set (reliable under scrub).
+    tl.fromTo(panel, { x: fromX, autoAlpha: 0 },
+      { x: 0, autoAlpha: 1, duration: 0.35, ease: 'power3.out' }, at);
+    tl.set(panel, { pointerEvents: 'auto' }, at + 0.36);
+    tl.set(panel, { pointerEvents: 'none' }, at + 0.66);
+    tl.to(panel, { x: -fromX, autoAlpha: 0, duration: 0.3, ease: 'power2.in' }, at + 0.68);
     flyTo(tl, BEATS[i + 2] || BEATS[5], at + 0.35);
   });
 

@@ -7,15 +7,16 @@
     cy.textContent = e.clientY.toFixed(2);
   }, { passive: true });
 
-  // Loader: original holds ~4s while the logo tiles assemble; keep a 2.4s
-  // minimum so the sequence is actually seen, then fade out
+  // Loader: original holds ~4-7s while the logo tiles assemble; hold 4s,
+  // then lift it and trigger the hero outline-to-fill intro
   addEventListener('load', function () {
     setTimeout(function () {
       var l = document.getElementById('loader');
+      document.documentElement.classList.remove('pre-intro');
       if (!l) return;
       l.style.transition = 'opacity .5s'; l.style.opacity = '0';
       setTimeout(function () { l.remove(); }, 550);
-    }, 2400);
+    }, 4000);
   });
 
   // FAQ accordion — single-open (RESEARCH §9)
@@ -46,6 +47,8 @@
       document.getElementById('demo-steps').innerHTML =
         d[1].map(function (s, i) { return '<li><strong>' + (i + 1) + '.</strong> ' + s + '</li>'; }).join('');
       drawer.classList.add('open'); drawer.setAttribute('aria-hidden', 'false');
+      var dv = drawer.querySelector('.demo-video');
+      dv.classList.remove('play'); void dv.offsetWidth; dv.classList.add('play');
     });
   });
   function closeDrawer() { drawer.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true'); }

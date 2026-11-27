@@ -64,7 +64,7 @@
   hair.scale.set(1, 0.82, 1); hair.position.set(0, 1.38, 0.05); figure.add(hair);
   var chair = new THREE.Mesh(new THREE.BoxGeometry(0.85, 1.0, 0.12), mat(0x222c44));
   chair.position.set(0, 0.35, 0.55); figure.add(chair);
-  figure.position.set(-0.4, -0.15, 2.6); figure.rotation.y = Math.PI;
+  figure.position.set(1.7, -0.3, 3.1); figure.rotation.y = Math.PI; figure.scale.setScalar(0.82);
   scene.add(figure);
   // Desk lamp (left), plant (right), notebook + pencil on the desk
   box(0.3, 0.06, 0.3, 0x41506b, -3.0, 0.12, -1.2);
