@@ -99,11 +99,28 @@
     var lines = new THREE.LineSegments(g, new THREE.LineBasicMaterial({ color: 0x41506b }));
     lines.position.set(-1.2, 0.125, 0.2); scene.add(lines);
   })();
+  // Facade texture: window grid drawn on a canvas (Feature 5 reads as a real tower)
+  function facadeTexture(base, win) {
+    var c = document.createElement('canvas'); c.width = 128; c.height = 128;
+    var g = c.getContext('2d');
+    g.fillStyle = base; g.fillRect(0, 0, 128, 128);
+    g.fillStyle = win;
+    for (var y = 10; y < 118; y += 22) for (var x = 10; x < 118; x += 22) g.fillRect(x, y, 12, 14);
+    var t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; return t;
+  }
+  var facadeMat = new THREE.MeshStandardMaterial({ map: facadeTexture('#b9c4d6', '#41506b'), roughness: 0.85 });
+  var facadeMat2 = new THREE.MeshStandardMaterial({ map: facadeTexture('#a7b6cf', '#31435f'), roughness: 0.85 });
   // Stepped massing model (rises for Feature 2 — animated in Phase 2)
   var massing = new THREE.Group();
-  [[2.2, 0.5, 1.8, 0], [1.7, 0.5, 1.4, 0.5], [1.1, 0.5, 1.0, 1.0]].forEach(function (b) {
-    var m = new THREE.Mesh(new THREE.BoxGeometry(b[0], b[1], b[2]), mat(0xb9c4d6));
+  [[2.2, 0.5, 1.8, 0], [1.7, 0.5, 1.4, 0.5], [1.1, 0.5, 1.0, 1.0], [0.7, 0.55, 0.7, 1.5]].forEach(function (b, i) {
+    var m = new THREE.Mesh(new THREE.BoxGeometry(b[0], b[1], b[2]), i % 2 ? facadeMat2 : facadeMat);
+    m.castShadow = true; m.receiveShadow = true;
     m.position.y = b[3] + b[1] / 2; massing.add(m);
+  });
+  // Balcony slabs on the tower (Feature 5 detail)
+  [0.35, 0.85, 1.35, 1.85].forEach(function (y) {
+    var s = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.05, 0.3), mat(0x8fa3c8));
+    s.position.set(0, y, 0.95); massing.add(s);
   });
   massing.position.set(1.9, 0.1, -0.2); scene.add(massing);
   // In-scene prompt bar (Feature 3 mock — fades in during beat 3, js/scroll.js)
@@ -128,5 +145,14 @@
   addEventListener('resize', resize); resize();
 
   window.__illocaScene = { scene: scene, camera: camera, massing: massing, plan: plan, promptBar: promptBar, ring: ring };
-  (function loop() { requestAnimationFrame(loop); renderer.render(scene, camera); })();
+  // Pause rendering while the flight is off-screen (perf — Phase 4)
+  var inView = true;
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (e) { inView = e[0].isIntersecting; }, { threshold: 0.02 })
+      .observe(document.getElementById('flight'));
+  }
+  (function loop() {
+    requestAnimationFrame(loop);
+    if (inView && !document.hidden) renderer.render(scene, camera);
+  })();
 })();

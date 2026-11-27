@@ -187,9 +187,9 @@
 </main>
 
 <!-- Demo drawer (Phase 3 wiring; content filled per feature from js/main.js) -->
-<aside id="demo-drawer" aria-hidden="true">
+<aside id="demo-drawer" role="dialog" aria-modal="false" aria-label="Feature demo" aria-hidden="true">
   <p class="hand">Feature Overview</p>
-  <button id="demo-close">Close ↩</button>
+  <button id="demo-close" aria-label="Close demo panel">Close ↩</button>
   <h3 id="demo-title"></h3>
   <ol id="demo-steps"></ol>
   <div class="demo-video" aria-hidden="true">

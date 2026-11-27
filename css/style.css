@@ -24,8 +24,11 @@ button{font:inherit;cursor:pointer;background:none;border:0;color:inherit}
 #loader .tile{animation:tile-in .7s cubic-bezier(.6,0,.2,1.4) backwards}
 #loader .tile--roof{animation-delay:.12s}#loader .tile--circle{animation-delay:.24s}#loader .tile--quarter{animation-delay:.36s}
 @keyframes tile-in{from{transform:translate(10px,-14px) rotate(10deg);opacity:0}to{transform:none;opacity:1}}
+/* Hero intro: headline draws in as outline, then fills solid (original's intro) */
+.hero-title{animation:title-fill 1.1s ease 2.55s backwards}
+@keyframes title-fill{from{color:transparent;-webkit-text-stroke:2px var(--ink)}to{color:var(--ink);-webkit-text-stroke:0}}
 /* Hero intro: annotations pop in after the headline */
-.hero-note-1,.hero-note-2{animation:note-in .6s ease 1s backwards}
+.hero-note-1,.hero-note-2{animation:note-in .6s ease 3.4s backwards}
 @keyframes note-in{from{opacity:0;transform:scale(.7) rotate(-10deg)}to{opacity:1}}
 .logo-mark{display:inline-grid;grid-template-columns:1fr 1fr;gap:2px;width:26px;height:26px}
 .logo-mark--loader{width:96px;height:96px;gap:5px}

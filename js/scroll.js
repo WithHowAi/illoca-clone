@@ -62,7 +62,7 @@
   var tl = gsap.timeline({
     defaults: { ease: 'power2.inOut' },
     scrollTrigger: {
-      trigger: '#flight', start: 'top top', end: '+=5600', scrub: 1, pin: true, anticipatePin: 1
+      trigger: '#flight', start: 'top top', end: '+=7200', scrub: 1, pin: true, anticipatePin: 1
     }
   });
 
@@ -72,7 +72,7 @@
 
   panels.forEach(function (panel, i) {
     var fromX = panel.classList.contains('panel--right') ? 90 : -90;
-    var at = 0.62 + i * 1.0;
+    var at = 0.62 + i * 1.08;
     // Scene state for this beat
     if (i === 1) tl.fromTo(S.massing.scale, { y: 0.08 }, { y: 1, duration: 0.8 }, at);           // massing rises (F2)
     if (i === 2) tl.to(S.promptBar.material, { opacity: 1, duration: 0.4 }, at + 0.3);            // prompt bar in (F3)
@@ -91,5 +91,5 @@
   });
 
   // Navy wipe up into the Open Letter (matches the original's exit)
-  tl.to('.flight-wipe', { scaleY: 1, duration: 0.45, ease: 'power2.inOut' }, 5.75);
+  tl.to('.flight-wipe', { scaleY: 1, duration: 0.45, ease: 'power2.inOut' }, 6.35);
 })();

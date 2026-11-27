@@ -48,9 +48,9 @@
       drawer.classList.add('open'); drawer.setAttribute('aria-hidden', 'false');
     });
   });
-  document.getElementById('demo-close').addEventListener('click', function () {
-    drawer.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true');
-  });
+  function closeDrawer() { drawer.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true'); }
+  document.getElementById('demo-close').addEventListener('click', closeDrawer);
+  addEventListener('keydown', function (e) { if (e.key === 'Escape') closeDrawer(); });
 
   // Cookie banner (RESEARCH §2)
   var cookies = document.getElementById('cookies');
