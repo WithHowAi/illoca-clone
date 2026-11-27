@@ -1,0 +1,147 @@
+/* illoca clone — design tokens from docs/RESEARCH.md §11 */
+:root{
+  --paper:#e8e0cf; --cream:#f5efe3; --blue:#1e4fd8; --navy:#1a2f6b;
+  --ink:#141c2e; --red:#e76051; --orange:#e8491d; --grey:#5b5b5b;
+  --font-display:"Syne",sans-serif; --font-head:"Space Grotesk",sans-serif;
+  --font-body:"DM Sans",sans-serif; --font-mono:"Space Mono","Geist Mono",monospace;
+  --font-hand:"Caveat",cursive;
+  --shadow:4px 4px 0 rgba(0,0,0,.1);
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:auto}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-body);overflow-x:hidden}
+body::before{ /* vertical grid-paper lines */
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:repeating-linear-gradient(90deg,rgba(65,65,65,.06) 0 1px,transparent 1px 72px);
+}
+h1,h2{font-family:var(--font-head);letter-spacing:-.02em}
+.hand{font-family:var(--font-hand)}
+a{color:inherit}
+button{font:inherit;cursor:pointer;background:none;border:0;color:inherit}
+
+/* Loader */
+#loader{position:fixed;inset:0;z-index:60;background:var(--paper);display:grid;place-items:center}
+.logo-mark{display:inline-grid;grid-template-columns:1fr 1fr;gap:2px;width:26px;height:26px}
+.logo-mark--loader{width:96px;height:96px;gap:5px}
+.tile{background:var(--blue);display:block}
+.tile--roof{clip-path:polygon(0 100%,100% 100%,100% 45%,50% 0,0 45%)}
+.tile--circle{border-radius:50%}
+.tile--quarter{border-radius:0 0 100% 0}
+
+/* Fixed chrome */
+.coords{position:fixed;top:14px;left:16px;z-index:50;font-family:var(--font-mono);font-size:11px;line-height:1.5}
+.chrome-email{position:fixed;top:14px;right:16px;z-index:50;font-family:var(--font-hand);font-size:18px;text-transform:uppercase;text-decoration:none}
+.nav-pill{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:50;width:min(730px,92vw);height:60px;
+  background:#fff;border:1px solid var(--blue);border-radius:999px;display:flex;align-items:center;gap:24px;padding:0 10px 0 20px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand-name{font-family:var(--font-head);font-weight:600;font-size:20px}
+.nav-links{display:flex;gap:22px;margin-inline:auto}
+.nav-links a{text-decoration:none;font-size:14px}
+.nav-links a:hover{color:var(--blue);text-decoration:underline dotted}
+.btn{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:12px 22px;text-decoration:none;font-weight:500;border:1px solid rgba(66,66,66,.3)}
+.btn--navy{background:var(--navy);color:#fff;border-color:var(--navy);padding:10px 18px}
+.btn--white{background:#fff;box-shadow:2px 2px 2px rgba(0,0,0,.15)}
+.btn-icon{width:12px;height:12px;background:var(--orange);flex:none}
+.btn-icon--play{background:var(--red);clip-path:polygon(0 0,100% 50%,0 100%)}
+
+/* Flight (hero + features, pinned in Phase 2) */
+#flight{position:relative;min-height:100vh}
+#scene{position:absolute;inset:0;width:100%;height:100%}
+.hero{position:relative;z-index:2;padding:24vh 0 0 70px;max-width:900px}
+.hero-title{font-size:clamp(56px,8vw,124px);line-height:.98;position:relative}
+.hero-note-1{position:absolute;color:var(--blue);transform:rotate(-6deg);font-size:.42em;right:6%;bottom:.4em}
+.hero-note-2{position:absolute;font-size:.34em;right:0;bottom:-.7em;transform:rotate(-3deg)}
+.hero-sub{margin:56px 0 22px;max-width:420px}
+.panel{position:relative;z-index:2;width:min(480px,90vw);background:var(--cream);border:1px solid rgba(66,66,66,.3);
+  box-shadow:var(--shadow);padding:44px 40px;margin:18vh 70px}
+.panel--right{margin-left:auto}
+.panel h2{font-size:clamp(38px,4vw,58px);margin:14px 0 12px}
+.panel-label{font-size:24px;text-decoration:underline}
+.panel-label span{border:1.5px solid var(--ink);border-radius:50%;padding:0 8px;margin-right:8px}
+.panel p{margin-bottom:20px}
+.panel-cue{font-size:22px;margin-top:26px}
+
+/* Open Letter */
+#letter{background:var(--navy);color:var(--cream);padding:120px 20px 0;text-align:center;overflow:hidden}
+.letter-eyebrow{font-size:26px;text-transform:uppercase;letter-spacing:.08em}
+.letter-title{font-family:Georgia,serif;font-size:clamp(56px,9vw,120px);font-weight:400}
+.letter-sheet{background:var(--cream);color:var(--ink);text-align:left;max-width:680px;margin:40px auto 0;
+  padding:56px 52px 72px;box-shadow:var(--shadow)}
+.letter-sheet p{margin-bottom:18px;line-height:1.65}
+
+/* Pricing + FAQs: tilted paper folders */
+.folder{position:relative;background:var(--paper);padding:110px 70px 90px;transform:rotate(-1.2deg);box-shadow:var(--shadow);margin-top:-30px}
+.folder-tab{position:absolute;top:22px;left:0;background:var(--cream);border:1px solid rgba(66,66,66,.3);
+  font-family:var(--font-mono);font-size:12px;text-transform:uppercase;padding:8px 22px}
+.pricing-head{text-align:center;font-size:clamp(28px,3.4vw,44px);margin-bottom:56px}
+.wavy{text-decoration:underline wavy var(--red) 2px;text-underline-offset:8px}
+.cards{display:grid;grid-template-columns:1fr 1.12fr 1fr;gap:0;align-items:start;max-width:1180px;margin:0 auto}
+.card{padding:50px 42px 64px;box-shadow:var(--shadow);border:1px solid rgba(66,66,66,.3)}
+.card--cream{background:var(--cream)} .card--blue{background:var(--blue);color:#fff}
+.card--red{background:var(--red);color:#fff;padding-top:76px;padding-bottom:96px;margin-top:-26px;z-index:1}
+.card h3{font-family:var(--font-head);font-size:30px;margin-bottom:10px}
+.price{font-family:var(--font-mono);font-size:26px;margin-bottom:26px}
+.price span{font-size:13px;opacity:.75}
+.card ul{list-style:none;padding:0;margin-bottom:34px}
+.card li{padding:9px 0 9px 26px;border-bottom:1px dashed rgba(120,120,120,.55);position:relative;font-size:14px}
+.card li::before{content:"✓";position:absolute;left:0;color:inherit}
+.pricing-note{text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--grey);margin-top:44px}
+
+/* FAQs */
+.faq-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:60px;max-width:1180px;margin:0 auto}
+.faq-eyebrow{font-size:26px;border:1.5px solid var(--ink);display:inline-block;padding:2px 14px;transform:rotate(-2deg)}
+.faq-intro h2{font-size:clamp(40px,4.6vw,64px);margin:22px 0 30px}
+.faq{border-bottom:1px dashed rgba(120,120,120,.6)}
+.faq-q{width:100%;display:flex;justify-content:space-between;gap:16px;text-align:left;font-weight:500;
+  font-size:17px;padding:22px 0;align-items:center}
+.faq-chevron{width:30px;height:30px;flex:none;background:#fff;border:1px solid rgba(66,66,66,.3);position:relative}
+.faq-chevron::after{content:"⌄";position:absolute;inset:0;display:grid;place-items:center;color:var(--blue);font-size:18px}
+.faq [aria-expanded="true"] .faq-chevron::after{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 0 24px;line-height:1.6}
+.faq.open .faq-a{display:block}
+
+/* Footer */
+footer{background:var(--blue);padding-top:90px;margin-top:-20px}
+.footer-card{background:var(--navy);color:#fff;padding:56px 70px 30px;position:relative;overflow:hidden}
+.footer-tag{font-family:var(--font-head);font-size:26px;line-height:1.35;position:relative;z-index:1}
+.footer-cols{display:flex;gap:70px;justify-content:flex-end;position:relative;z-index:1}
+.footer-cols h4{color:var(--orange);font-size:14px;margin-bottom:14px}
+.footer-cols a{display:block;color:#fff;text-decoration:none;margin-bottom:8px;font-size:14px}
+.footer-word{font-family:var(--font-head);font-size:19vw;line-height:.8;text-align:center;color:rgba(255,255,255,.07)}
+.footer-legal{text-align:right;font-size:12px;color:#b9c2d8}
+
+/* Demo drawer + cookies */
+#demo-drawer{position:fixed;top:0;left:0;height:100dvh;width:min(560px,94vw);background:var(--cream);z-index:55;
+  padding:34px 38px;transform:translateX(-105%);transition:transform .6s cubic-bezier(.7,0,.2,1);box-shadow:var(--shadow);overflow:auto}
+#demo-drawer.open{transform:none}
+#demo-close{float:right;font-family:var(--font-hand);font-size:20px;text-transform:uppercase}
+#demo-title{font-family:var(--font-head);font-size:44px;margin:18px 0}
+#demo-steps li{margin-bottom:14px;line-height:1.55}
+.demo-video{background:#d9d2bd;aspect-ratio:16/10;display:grid;place-items:center;font-family:var(--font-mono);font-size:12px;margin:24px 0}
+#cookies{position:fixed;left:18px;bottom:18px;z-index:55;background:#fff;max-width:360px;padding:20px;box-shadow:var(--shadow);font-size:13px}
+#cookies button{padding:8px 18px;border:1px solid rgba(66,66,66,.35);margin:12px 8px 0 0}
+#cookie-accept{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+/* Responsive stacking (our design — original mobile unobserved, RESEARCH §12) */
+@media (max-width:900px){
+  .hero{padding:18vh 20px 0}
+  .panel{margin:12vh 16px;width:auto}
+  .folder{padding:90px 20px 70px}
+  .cards{grid-template-columns:1fr;gap:18px}
+  .card--red{margin-top:0;padding:50px 42px 64px}
+  .faq-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .footer-card{padding:40px 22px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* Pinned-flight mode (added by js/scroll.js when GSAP + WebGL are live):
+   hero and panels become absolute layers over the fixed canvas */
+.js-flight #flight{height:100vh;overflow:hidden}
+.js-flight .hero{position:absolute;top:0;left:0;padding-top:22vh}
+.js-flight .panel{position:absolute;top:50%;transform:translateY(-50%);margin:0;opacity:0;visibility:hidden}
+.js-flight .panel--left{left:70px}
+.js-flight .panel--right{right:70px}
+@media (max-width:900px){
+  .js-flight .panel--left,.js-flight .panel--right{left:16px;right:16px}
+}
