@@ -18,6 +18,10 @@ camera flight** through a single desk diorama, with text panels sliding in and o
 as the camera moves. Reproducing that mechanism faithfully is the core of this project.
 Full teardown: [`docs/RESEARCH.md`](docs/RESEARCH.md) · Build plan: [`docs/PLAN.md`](docs/PLAN.md)
 
+## Live
+
+**https://illoca-clone.pages.dev/** — Cloudflare Pages, GitHub-connected: every push to `main` auto-deploys.
+
 ## Run it
 
 No build step:
@@ -30,10 +34,10 @@ python3 -m http.server 8000
 ## Status
 
 - ✅ Phase 0 — Research (live teardown documented)
-- 🔨 Phase 1 — Scaffold + static shell (in progress)
-- ⏳ Phase 2 — WebGL scene + scroll choreography
-- ⏳ Phase 3 — Interactions (demo drawer, FAQ accordion, cookie banner, mobile)
-- ⏳ Phase 4 — Polish, QA, GitHub Pages
+- ✅ Phase 1 — Scaffold + static shell
+- ✅ Phase 2 — WebGL scene + scroll choreography (pinned camera flight, richer diorama with shadows)
+- ✅ Phase 3 — Interactions (demo drawer with animated Live Draft preview, FAQ accordion, cookie banner, mobile stacking)
+- 🔨 Phase 4 — Polish + QA (first audit vs the original done 27 Nov 2026; fixes deployed — pricing CTA contrast, loader sequence, hero annotations, panel bleed-through, navy exit wipe, footer blueprint)
 
 ## Notes
 
